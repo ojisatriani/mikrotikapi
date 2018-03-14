@@ -1,38 +1,23 @@
 <?php
 namespace OjiSatriani\MikrotikApi;
 
-use OjiSatriani\Router\RouterosApi;
+use OjiSatriani\MikrotikApi\RouterosApi;
 
 class Mikroji extends RouterosApi
 {
-    private static $api;
-    private static $interface;
+    private $api;
+    private $interface;
     private $command;
     private $tersambung;
     
-    public function __construct($ip = null, $login = null, $password = null, $interface = null)
+    public function __construct($ip = null, $login = null, $password = null)
     {
         try {
-            self::$api = $this->connect($ip, $login, $password);
-            if($this->konek)
+            $this->api = $this->connect($ip, $login, $password);
+            if($this->api)
             {
-                $this->command      = self::$api->comm("/system/resource/print");
+                $this->command      = $this->comm("/system/resource/print");
                 $this->tersambung   = TRUE;
-                if(!empty($interface))
-                {
-                    self::$api->connect($this->ip, $this->username, $this->password);
-                    self::$api->debug = false;
-                    self::$api->write("/interface/monitor-traffic",false);
-                    self::$api->write("=interface=".$interface,false);  
-                    self::$api->write("=once=",true);
-                    $baca             = self::$api->read(false);
-                    $hasil            = self::$api->parse_response($baca); //return array
-                    if(count($hasil)>0) {  
-                        self::$interface = $hasil;
-                    } else {  
-                        self::$interface = array();
-                    } 
-                }
                 return TRUE;
             } else {
                 $this->tersambung   = FALSE;
@@ -50,7 +35,7 @@ class Mikroji extends RouterosApi
 
     public function putus()
     {
-        self::$api->disconnect();
+        $this->disconnect();
     }
 
     public function ram()
@@ -80,39 +65,49 @@ class Mikroji extends RouterosApi
         return sprintf("%4.2f", $size/1048576);
     }
 
-    public function rx()
+    public function rx($interface)
     {
-        return $this->formatBytes(self::$interface[0]["rx-bits-per-second"]);
+        return $this->formatBytes($this->setInterface($interface)["rx-bits-per-second"]);
     }
 
-    public function tx()
+    public function tx($interface)
     {
-        return $this->formatBytes(self::$interface[0]["tx-bits-per-second"]);
+        return $this->formatBytes($this->setInterface($interface)["tx-bits-per-second"]);
     }
 
-    public function rxInMb()
+    public function rxInMb($interface)
     {
-        return $this->get_mb(self::$interface[0]["rx-bits-per-second"]);
+        return $this->get_mb($this->setInterface($interface)["rx-bits-per-second"]);
     }
 
-    public function txInMb()
+    public function txInMb($interface)
     {
-        return $this->get_mb(self::$interface[0]["tx-bits-per-second"]);
+        return $this->get_mb($this->setInterface($interface)["tx-bits-per-second"]);
+    }
+
+    public function setInterface($interface){
+        $this->debug        = false;
+        $this->write("/interface/monitor-traffic",false);
+        $this->write("=interface=".$interface,false);  
+        $this->write("=once=",true);
+        $baca               = $this->read(false);
+        $hasil              = $this->parseResponse($baca); //return array
+        if(count($hasil)>0) {  
+            return $hasil[0];
+        } else {  
+            $this->interface = array();
+        } 
     }
 
     public function getInterface(){
-        $ARRAY      = self::$api->comm("/interface/print");
+        $ARRAY      = $this->comm("/interface/print");
         $num        = count($ARRAY);
         $data       = array();
         for($i=0; $i<$num; $i++){
-           // $data[] = $ARRAY[$i]['name'];
+        //    $data[] = $ARRAY[$i]['name'];
             $data[$ARRAY[$i]['name']] = $ARRAY[$i]['name'];
         }
         return $data;
-    }
-
-    public function defaultInterface(){
-        return $this->getInterface[0];
     }
 
     public function __destruct()
