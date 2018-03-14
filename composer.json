@@ -1,0 +1,22 @@
+{
+    "name": "ojisatriani/router",
+    "description": "Router Mikrotik API Laravel",
+    "type": "library",
+    "require": {
+        "php": ">=5.6.0",
+        "laravel/framework": "5.*"
+    },
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "ojiSatriani",
+            "email": "oji.satriani@gmail.com"
+        }
+    ],
+    "minimum-stability": "dev",
+    "autoload": {
+        "psr-4": {
+            "OjiSatriani\\Router": "src/"
+        }
+    }
+}
