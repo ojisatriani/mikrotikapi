@@ -16,7 +16,7 @@
     "prefer-stable": true,
     "autoload": {
         "psr-4": {
-            "OjiSatriani\\Router": "src/"
+            "OjiSatriani\\MikrotikApi": "src/"
         }
     }
 }
