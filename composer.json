@@ -1,6 +1,6 @@
 {
     "name": "ojisatriani/mikrotikapi",
-    "description": "Router Mikrotik API Laravel",
+    "description": "Router Mikrotik API",
     "type": "library",
     "require": {
         "php": ">=5.6.0"
