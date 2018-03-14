@@ -1,5 +1,5 @@
 <?php
-namespace OjiSatriani\Router;
+namespace OjiSatriani\MikrotikApi;
 
 use OjiSatriani\Router\RouterosApi;
 

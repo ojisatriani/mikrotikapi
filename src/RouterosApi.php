@@ -1,5 +1,5 @@
 <?php
-namespace OjiSatriani\Router;
+namespace OjiSatriani\MikrotikApi;
 /*****************************
  *
  * RouterOS PHP API class v1.6
