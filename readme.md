@@ -1,4 +1,6 @@
 ## Mikrotik APi Laravel
+Client API for RouterOS/Mikrotik
+
 Instalation
 ----
 
@@ -29,8 +31,6 @@ echo $router->rxinMb('ether1') .'<br />'; // 1.85 (view chart or graph)
 echo $router->txinMb('ether1') .'<br />'; // 47.70 (view chart or graph)
 echo json_encode($router->getInterface()) .'<br />'; //  {"ether1":"ether1","ether2:ether2","ether3:ether3"}
 ```
-
-Client API for RouterOS/Mikrotik
 
 Mikrotik Wiki page at http://wiki.mikrotik.com/wiki/API_PHP_class
 
