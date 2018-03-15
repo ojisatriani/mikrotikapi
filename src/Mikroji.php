@@ -1,6 +1,15 @@
 <?php
 namespace OjiSatriani\MikrotikApi;
 
+/*****************************
+ *
+ * Mikrotik API - Mikroji
+ * Author: Oji Satriani - @ojisatriani
+ * http://www.mikrotik.com
+ * http://wiki.mikrotik.com/wiki/API_PHP_class
+ *
+ ******************************/
+
 use OjiSatriani\MikrotikApi\RouterosApi;
 
 class Mikroji extends RouterosApi
@@ -13,7 +22,7 @@ class Mikroji extends RouterosApi
     public function __construct($ip = null, $login = null, $password = null)
     {
         try {
-            $this->api = $this->connect($ip, $login, $password);
+            $this->api = $this->_connect($ip, $login, $password);
             if($this->api)
             {
                 $this->command      = $this->comm("/system/resource/print");
@@ -29,7 +38,7 @@ class Mikroji extends RouterosApi
         }
     }
 
-    public static function sambung($ip, $login, $password){
+    public static function connect($ip, $login, $password){
         return new static($ip, $login, $password);
     }
 

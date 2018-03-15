@@ -84,7 +84,7 @@ class RouterosApi
      *
      * @return boolean                If we are connected or not
      */
-    public function connect($ip, $login, $password)
+    public function _connect($ip, $login, $password)
     {
         for ($ATTEMPT = 1; $ATTEMPT <= $this->attempts; $ATTEMPT++) {
             $this->connected = false;

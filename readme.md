@@ -25,7 +25,7 @@ Basic Usage:
 
 ```$php
 use OjiSatriani\MikrotikApi\Mikroji;
-$router = Mikroji::sambung('192.168.3.1','user-api','user-api');
+$router = Mikroji::connect('192.168.3.1','user-api','user-api');
 echo $router->ram() .'<br />'; // 1652.2
 echo $router->hdd() .'<br />'; // 915.8
 echo $router->cpu() .'<br />'; // 0
