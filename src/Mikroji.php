@@ -17,7 +17,6 @@ class Mikroji extends RouterosApi
     private $api;
     private $interface;
     private $command;
-    private $tersambung;
     
     public function __construct($ip = null, $login = null, $password = null)
     {
@@ -26,14 +25,11 @@ class Mikroji extends RouterosApi
             if($this->api)
             {
                 $this->command      = $this->comm("/system/resource/print");
-                $this->tersambung   = TRUE;
                 return TRUE;
             } else {
-                $this->tersambung   = FALSE;
                 return FALSE;
             }
         } catch (Exception $e) {
-            $this->tersambung   = FALSE;
             return FALSE;
         }
     }
