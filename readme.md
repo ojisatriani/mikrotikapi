@@ -27,8 +27,8 @@ echo $router->hdd() .'<br />'; // 915.8
 echo $router->cpu() .'<br />'; // 0
 echo $router->rx('ether1') .'<br />'; // 1.85Kb/Mb/Gb/Tb
 echo $router->tx('ether1') .'<br />'; // 47.7Kb/Mb/Gb/Tb
-echo $router->rxinMb('ether1') .'<br />'; // 1.85 (view chart or graph) 
-echo $router->txinMb('ether1') .'<br />'; // 47.70 (view chart or graph)
+echo $router->rxInMb('ether1') .'<br />'; // 1.85 (view chart or graph) 
+echo $router->txInMb('ether1') .'<br />'; // 47.70 (view chart or graph)
 echo json_encode($router->getInterface()) .'<br />'; //  {"ether1":"ether1","ether2:ether2","ether3:ether3"}
 ```
 
