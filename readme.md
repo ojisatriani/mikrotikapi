@@ -30,6 +30,7 @@ echo $router->tx('ether1') .'<br />'; // 47.7Kb/Mb/Gb/Tb
 echo $router->rxInMb('ether1') .'<br />'; // 1.85 (view chart or graph) 
 echo $router->txInMb('ether1') .'<br />'; // 47.70 (view chart or graph)
 echo json_encode($router->getInterface()) .'<br />'; //  {"ether1":"ether1","ether2:ether2","ether3:ether3"}
+echo $router->command('log/print'); //  return array()
 ```
 
 Mikrotik Wiki page at http://wiki.mikrotik.com/wiki/API_PHP_class

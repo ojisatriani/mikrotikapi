@@ -16,7 +16,6 @@ class Mikroji extends RouterosApi
 {
     private $api;
     private $interface;
-    private $command;
     
     public function __construct($ip = null, $login = null, $password = null)
     {
@@ -24,7 +23,6 @@ class Mikroji extends RouterosApi
             $this->api = $this->_connect($ip, $login, $password);
             if($this->api)
             {
-                $this->command      = $this->comm("/system/resource/print");
                 return TRUE;
             } else {
                 return FALSE;
@@ -38,24 +36,23 @@ class Mikroji extends RouterosApi
         return new static($ip, $login, $password);
     }
 
-    public function putus()
-    {
-        $this->disconnect();
-    }
-
+    
     public function ram()
     {
-        return number_format(($this->command['0']['free-memory']/1048576), 1, '.', '');
+        $resource = $this->systemResource();
+        return number_format(($resource['0']['free-memory']/1048576), 1, '.', '');
     }
 
     public function hdd()
     {
-        return number_format(($this->command['0']['free-hdd-space']/1048576), 1, '.', '');
+        $resource = $this->systemResource();
+        return number_format(($resource['0']['free-hdd-space']/1048576), 1, '.', '');
     }
 
     public function cpu()
     {
-        return $this->command['0']['cpu-load'];
+        $resource = $this->systemResource();
+        return $resource['0']['cpu-load'];
     }
 
     function formatBytes($size, $precision = 2)
@@ -114,6 +111,21 @@ class Mikroji extends RouterosApi
         }
         return $data;
     }
+
+    public function command($comm)
+    {
+        return $this->comm($comm);
+    }
+
+    public function systemResource()
+    {
+        return $this->command("/system/resource/print");
+    }
+
+    public function putus()
+    {
+        $this->disconnect();
+    }  
 
     public function __destruct()
     {
