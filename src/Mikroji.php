@@ -16,6 +16,7 @@ class Mikroji extends RouterosApi
 {
     private $api;
     private $interface;
+    private $command;
     
     public function __construct($ip = null, $login = null, $password = null)
     {
@@ -23,6 +24,7 @@ class Mikroji extends RouterosApi
             $this->api = $this->_connect($ip, $login, $password);
             if($this->api)
             {
+                $this->command      = $this->comm("/system/resource/print");
                 return TRUE;
             } else {
                 return FALSE;
@@ -36,23 +38,24 @@ class Mikroji extends RouterosApi
         return new static($ip, $login, $password);
     }
 
-    
+    public function putus()
+    {
+        $this->disconnect();
+    }
+
     public function ram()
     {
-        $resource = $this->systemResource();
-        return number_format(($resource['0']['free-memory']/1048576), 1, '.', '');
+        return number_format(($this->command['0']['free-memory']/1048576), 1, '.', '');
     }
 
     public function hdd()
     {
-        $resource = $this->systemResource();
-        return number_format(($resource['0']['free-hdd-space']/1048576), 1, '.', '');
+        return number_format(($this->command['0']['free-hdd-space']/1048576), 1, '.', '');
     }
 
     public function cpu()
     {
-        $resource = $this->systemResource();
-        return $resource['0']['cpu-load'];
+        return $this->command['0']['cpu-load'];
     }
 
     function formatBytes($size, $precision = 2)
@@ -94,11 +97,9 @@ class Mikroji extends RouterosApi
         $this->write("=once=",true);
         $baca               = $this->read(false);
         $hasil              = $this->parseResponse($baca); //return array
-        if(count($hasil)>0) {  
+        if(isset($search_array[0])) {  
             return $hasil[0];
-        } else {  
-            $this->interface = array();
-        } 
+        }
     }
 
     public function getInterface(){
@@ -111,21 +112,6 @@ class Mikroji extends RouterosApi
         }
         return $data;
     }
-
-    public function command($comm)
-    {
-        return $this->comm($comm);
-    }
-
-    public function systemResource()
-    {
-        return $this->command("/system/resource/print");
-    }
-
-    public function putus()
-    {
-        $this->disconnect();
-    }  
 
     public function __destruct()
     {
