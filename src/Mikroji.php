@@ -97,7 +97,7 @@ class Mikroji extends RouterosApi
         $this->write("=once=",true);
         $baca               = $this->read(false);
         $hasil              = $this->parseResponse($baca); //return array
-        if(isset($search_array[0])) {  
+        if(isset($hasil[0])) {  
             return $hasil[0];
         }
     }
