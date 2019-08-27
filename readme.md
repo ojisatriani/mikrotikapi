@@ -36,3 +36,20 @@ echo $router->command('log/print'); //  return array()
 Mikrotik Wiki page at http://wiki.mikrotik.com/wiki/API_PHP_class
 
 https://github.com/BenMenking/routeros-api
+
+
+## Configure API credentials
+
+*RouterOS Winbox*
+
+1. Enabling API.
+
+Go to **IP** -> **Services** and enable **api** service.
+
+2. Creating API user. 
+
+Go to **System** -> **Users**, tab **Groups**. Create new group with permissions: ```api```, ```read```, ```write```.
+
+Then after group created go to tab ```Users``` and create new. Associate this user with group previously created.
+
+Done.
