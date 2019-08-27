@@ -97,7 +97,7 @@ class RouterosApi
                 $RESPONSE = $this->read(false);
                 if (isset($RESPONSE[0]) && $RESPONSE[0] == '!done') {
                     $MATCHES = array();
-                    if (preg_match_all('/[^=]+/i', $RESPONSE[1], $MATCHES)) {
+                    if (preg_match_all('/[^=]+/i', $RESPONSE[0], $MATCHES)) {
                         if ($MATCHES[0][0] == 'ret' && strlen($MATCHES[0][1]) == 32) {
                             $this->write('/login', false);
                             $this->write('=name=' . $login, false);
